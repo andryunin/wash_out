@@ -15,12 +15,14 @@ module WashOut
       # which are not valid Ruby function names.
       def soap_action(action, options={})
         if action.is_a?(Symbol)
+          action = action.to_s
+
           if soap_config.camelize_wsdl.to_s == 'lower'
-            options[:to] ||= action.to_s
-            action         = action.to_s.camelize(:lower)
+            options[:to] ||= action
+            action         = action.camelize(:lower)
           elsif soap_config.camelize_wsdl
-            options[:to] ||= action.to_s
-            action         = action.to_s.camelize
+            options[:to] ||= action
+            action         = action.camelize
           end
 
         end
